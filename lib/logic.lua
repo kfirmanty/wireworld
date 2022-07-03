@@ -1,4 +1,6 @@
-local logic = {cells = {}}
+require("lib.helpers")
+local logic = {cells = {},
+               entities = {}}
 local board_width = 16;
 local board_height = 16;
 
@@ -9,8 +11,10 @@ local board_height = 16;
 function logic:init()
    for x=1,board_width do
       self.cells[x] = {}
+      self.entities[x] = {}
       for y=1,board_height do
          self.cells[x][y] = 0
+         self.entities[x][y] = nil
       end
    end
 end
@@ -54,6 +58,8 @@ function logic:update()
                new_cells[x][y] = 3
             end
          end
+         local entity = self.entities[x][y]
+         if entity then entity:update(self.cells, x, y) end
       end
    end
    self.cells = new_cells;
@@ -61,6 +67,10 @@ end
 
 function logic:set(x, y, val)
    self.cells[x][y] = val
+end
+
+function logic:add_entity(x, y, entity)
+   self.entities[x][y] = entity
 end
 
 return logic

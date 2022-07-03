@@ -1,4 +1,5 @@
 local logic = require("lib.logic")
+require('lib.entity')
 local width = 0
 local height = 0
 
@@ -15,6 +16,7 @@ function love.load()
    logic:set(7, 3, 3)
    logic:set(8, 3, 3)
    logic:set(9, 3, 3)
+   logic:add_entity(4,4, new_constant_note_entity(48))
    width = love.graphics.getWidth( )
    height = love.graphics.getHeight( )
    stepX = width/16
