@@ -1,14 +1,14 @@
-require("lib.helpers")
 local logic = {cells = {},
                entities = {}}
-local board_width = 16;
-local board_height = 16;
-
+local board_width;
+local board_height;
 -- 0 empty
 -- 1 electron head
 -- 2 electron tail
 -- 3 conductor
-function logic:init()
+function logic:init(width, height)
+   board_width = width
+   board_height = height
    for x=1,board_width do
       self.cells[x] = {}
       self.entities[x] = {}
@@ -59,7 +59,7 @@ function logic:update()
             end
          end
          local entity = self.entities[x][y]
-         if entity then entity:update(self.cells, x, y) end
+         if entity then entity:update(self.cells, new_cells, x, y) end
       end
    end
    self.cells = new_cells;

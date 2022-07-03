@@ -20,13 +20,25 @@ end
 
 function new_constant_note_entity(value)
    local entity = {note = value}
-   function entity:update(cells, x, y)
+   function entity:update(cells, new_cells, x, y)
       local head_count = direct_neighbours(cells, x, y, 1)
       if head_count > 0 then
          for i=1, head_count do
             print("CONSTANT NOTE: " .. self.note .. "\n")
+            engine.hz(self.note)
          end
       end
+   end
+   return entity
+end
+
+function new_electron_generator(per_tick)
+   local entity = {counter = 0}
+   function entity:update(cells, new_cells, x, y)
+      if self.counter == 0 then
+         new_cells[x][y] = 1 -- add electron head underneath the producer
+      end
+      self.counter = (self.counter + 1) % per_tick
    end
    return entity
 end
