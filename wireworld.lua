@@ -10,7 +10,10 @@ function redraw()
    screen.clear()
    for x = 1, board_width do
       for y = 1, board_height do
-         if logic.cells[x][y] == 1 then
+         local entity = logic.entities[x][y]
+         if entity then
+            entity:draw((x - 1) * stepX, (y - 1) * stepY, stepX, stepY)
+         elseif logic.cells[x][y] == 1 then
             screen.level(12)
             screen.rect((x - 1) * stepX, (y - 1) * stepY, stepX, stepY)
             screen.stroke()
