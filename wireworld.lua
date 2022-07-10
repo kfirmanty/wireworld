@@ -50,9 +50,25 @@ function init()
    logic:set(7, 3, 3)
    logic:set(8, 3, 3)
    logic:set(9, 3, 3)
+   logic:set(9, 4, 3)
+   logic:set(9, 5, 3)
+   logic:set(9, 6, 3)
+   logic:set(8, 7, 3)
+   logic:set(7, 7, 3)
+   logic:set(6, 7, 3)
+   logic:set(10, 7, 3)
+   logic:set(10, 8, 3)
+   logic:set(10, 9, 3)
+   
+   logic:set(11, 7, 3)
+   logic:set(12, 7, 3)
+   logic:set(13, 7, 3)
+   logic:add_entity(14,7, new_electron_generator(5))
    width = 128
    height = 64
    logic:add_entity(4,4, new_constant_note_entity(220))
+   logic:add_entity(5,7, new_constant_note_entity(440))
+   logic:add_entity(10,10, new_constant_note_entity(220))
    logic:add_entity(1,3, new_electron_generator(4))
    stepX = width/board_width
    stepY = height/board_height
