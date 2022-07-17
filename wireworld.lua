@@ -6,6 +6,29 @@ local board_width = 16
 local board_height = 16
 engine.name = "PolyPerc"
 
+mouse_x = 0
+mouse_y = 0
+
+function setup_mouse()
+   mouse = hid.connect()
+   mouse.event = mouse_event
+end
+
+function mouse_event(type, code, val)
+   val = util.clamp(val, -1, 1)
+
+   if code == 0 then
+      mouse_x = util.clamp(x + val, 1, 128)
+      redraw()
+   elseif code == 1 then
+      mouse_y = util.clamp(y + val, 1, 64)
+      redraw()
+   elseif code == 272 then -- left button
+   elseif code == 273 then -- rb
+   elseif code == 272 then -- middle button
+   end
+end
+
 function redraw()
    screen.clear()
    for x = 1, board_width do
@@ -25,6 +48,9 @@ function redraw()
          end
       end
    end
+   screen.level(15)
+   screen.pixel(mouse_x, mouse_y)
+   screen.fill()
    screen.update()
 end
 
@@ -73,4 +99,5 @@ function init()
    stepX = width/board_width
    stepY = height/board_height
    clock_id = clock.run(main_loop)
+   setup_mouse()
 end
