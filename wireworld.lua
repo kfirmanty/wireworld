@@ -4,10 +4,12 @@ local width = 0
 local height = 0
 local board_width = 16
 local board_height = 16
+local stepX
+local stepY
 engine.name = "PolyPerc"
 
-mouse_x = 0
-mouse_y = 0
+local mouse_x = 0
+local mouse_y = 0
 
 function setup_mouse()
    mouse = hid.connect()
@@ -15,15 +17,16 @@ function setup_mouse()
 end
 
 function mouse_event(type, code, val)
-   val = util.clamp(val, -1, 1)
+   val = val/2
 
    if code == 0 then
-      mouse_x = util.clamp(x + val, 1, 128)
+      mouse_x = util.clamp(mouse_x + val, 1, 128)
       redraw()
    elseif code == 1 then
-      mouse_y = util.clamp(y + val, 1, 64)
+      mouse_y = util.clamp(mouse_y + val, 1, 64)
       redraw()
    elseif code == 272 then -- left button
+      logic:set(math.floor(mouse_x / stepX) + 1, math.floor(mouse_y / stepY) + 1, 3)
    elseif code == 273 then -- rb
    elseif code == 272 then -- middle button
    end
